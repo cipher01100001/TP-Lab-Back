@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,15 +30,6 @@ class CulturemediaServiceImplTest {
         MockitoAnnotations.openMocks(this);
         culturemediaService = new CulturemediaServiceImpl(videoRepository, viewsRepository);
     }
-
-    private final List<Video> sampleVideos = List.of(
-            new Video("01", "Título 1", "----", 4.5),
-            new Video("02", "Título 2", "----", 5.5),
-            new Video("03", "Título 3", "----", 4.4),
-            new Video("04", "Título 4", "----", 3.5),
-            new Video("05", "Clic 5", "----", 5.7),
-            new Video("06", "Clic 6", "----", 5.1)
-    );
 
     @Test
     void when_FindAll_all_videos_should_be_returned_successfully() throws VideoNotFoundException {
@@ -81,31 +71,30 @@ class CulturemediaServiceImplTest {
     }
 
     private void mock_findAll_videos_returned_successfully() {
-        doReturn(sampleVideos)
+        doReturn(List.of(
+                        new Video("01", "Título 1", "----", 4.5),
+                        new Video("02", "Título 2", "----", 5.5),
+                        new Video("03", "Título 3", "----", 4.4),
+                        new Video("04", "Título 4", "----", 3.5),
+                        new Video("05", "Clic 5", "----", 5.7),
+                        new Video("06", "Clic 6", "----", 5.1)))
                 .when(videoRepository)
                 .findAll();
     }
 
     private void mock_FindByTitle_videos_returned_successfully(String title) {
-        List<Video> filteredVideos = new ArrayList<>();
-        for ( Video video : sampleVideos ) {
-            if(video.title().contains(title)){
-                filteredVideos.add(video);
-            }
-        }
-        doReturn(filteredVideos)
+        doReturn(List.of(
+                        new Video("05", "Clic 5", "----", 5.7),
+                        new Video("06", "Clic 6", "----", 5.1)))
                 .when(videoRepository)
                 .find(title);
     }
 
     private void mock_FindByDuration_videos_returned_successfully(Double fromDuration, Double toDuration) {
-        List<Video> filteredVideos = new ArrayList<>();
-        for ( Video video : sampleVideos ) {
-            if(video.duration() >= fromDuration && video.duration() <= toDuration){
-                filteredVideos.add(video);
-            }
-        }
-        doReturn(filteredVideos)
+        doReturn(List.of(
+                        new Video("03", "Título 3", "----", 4.4),
+                        new Video("04", "Título 4", "----", 3.5),
+                        new Video("05", "Clic 5", "----", 5.7)))
                 .when(videoRepository)
                 .find(fromDuration, toDuration);
     }
