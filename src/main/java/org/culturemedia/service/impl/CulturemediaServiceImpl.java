@@ -6,9 +6,11 @@ import org.culturemedia.model.View;
 import org.culturemedia.repository.VideoRepository;
 import org.culturemedia.repository.ViewsRepository;
 import org.culturemedia.service.CulturemediaService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CulturemediaServiceImpl implements CulturemediaService {
 
     private final VideoRepository videoRepository;

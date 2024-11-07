@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.culturemedia.model.Video;
 import org.culturemedia.repository.VideoRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VideoRepositoryImpl implements VideoRepository {
 
 	private final List<Video> videos;
